@@ -41,6 +41,7 @@
     }
   },
   "devDependencies": {
+    "@types/three": "^0.152.1",
     "commitizen": "^4.3.0",
     "cz-customizable": "^7.0.0",
     "cz-git": "^1.6.1",
