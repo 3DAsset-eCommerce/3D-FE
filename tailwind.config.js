@@ -16,6 +16,10 @@ module.exports = {
           lineHeight: '1.25rem',
         },
       ],
+      mm: [
+        '1.4rem',
+        { fontWeight: '500' }
+      ],
       base: [
         '1.6rem',
         {
@@ -78,4 +82,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};

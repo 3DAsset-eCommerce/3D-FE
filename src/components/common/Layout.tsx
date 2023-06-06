@@ -5,6 +5,7 @@ import Header from './Header'
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-screen ">
+      {/* @ts-expect-error Async Server Component */}
       <SideNav />
       <div className="w-full ml-[24.4rem]">
         <Header />
