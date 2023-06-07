@@ -8,5 +8,5 @@ import { MyAssetFooter } from '@/components/myasset/MyAssetFooter'
 import { MyAssetPagenation } from '@/components/myasset/MyAssetPagenation'
 export default function MyAssetsPage() {
   alert('page')
-  return <Layout>asddd</Layout>
+  return <Layout>테스트 테스트</Layout>
 }

@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "next lint",
     "commit": "git-cz"
   },
   "dependencies": {
@@ -23,7 +23,6 @@
     "eslint-config-next": "13.4.3",
     "next": "13.4.3",
     "postcss": "8.4.23",
-    "prettier": "^2.8.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
@@ -43,17 +42,16 @@
     "commitizen": "^4.3.0",
     "cz-customizable": "^7.0.0",
     "cz-git": "^1.6.1",
-    "eslint-plugin-tailwindcss": "^3.12.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "msw": "^1.2.1"
+    "msw": "^1.2.1",
+    "prettier": "^2.8.8"
   },
   "msw": {
     "workerDirectory": "public"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "yarn lint",
       "eslint --fix",
       "prettier --write",
       "git add"
