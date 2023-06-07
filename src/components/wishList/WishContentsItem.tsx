@@ -52,7 +52,7 @@ export default function WishContentsItem({ data, isChecked }: WishContentsItemPr
         <div className="flex h-full w-[10rem] flex-auto flex-col justify-around p-5">
           <p className="flex-shrink-0 truncate text-lg ">제목 : {data?.Subject}</p>
           <p className="whitespace-nomal">
-            확장자: {} | 데이타 용량 : {} | 특화분야 : {} | 사용 프로그램 : {}
+            확장자: {data?.확장자} | 데이타 용량 : {} | 특화분야 : {} | 사용 프로그램 : {}
           </p>
         </div>
         <div className="flex w-[9rem] flex-col gap-2  pr-[2rem] text-end ">

@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
-const ThreeScene = () => {
+const MyAsset3D = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
   useEffect(() => {
@@ -40,4 +40,4 @@ const ThreeScene = () => {
   return <canvas ref={canvasRef} />
 }
 
-export default ThreeScene
+export default MyAsset3D
