@@ -8,5 +8,10 @@ import { MyAssetFooter } from '@/components/myasset/MyAssetFooter'
 import { MyAssetPagenation } from '@/components/myasset/MyAssetPagenation'
 export default function MyAssetsPage() {
   alert('page')
-  return <Layout>테스트 테스트asdasd</Layout>
+  return (
+    <Layout>
+      <div className="flex w-2 divide-x-0 p-3"></div>
+      <div className="flex-col align-baseline"></div>
+    </Layout>
+  )
 }
