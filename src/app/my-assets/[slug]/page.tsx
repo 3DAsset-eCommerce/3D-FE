@@ -6,8 +6,8 @@ import { MyAssetContents } from '@/components/myasset/MyAssetContents'
 import { MyAssetContetntsItem } from '@/components/myasset/MyAssetContetntsItem'
 import { MyAssetFooter } from '@/components/myasset/MyAssetFooter'
 import { MyAssetPagenation } from '@/components/myasset/MyAssetPagenation'
-
 export default function MyAssetsPage() {
+  alert(page)
   return (
     <Layout>
       <div className="flex h-full ">
