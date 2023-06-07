@@ -7,7 +7,7 @@ export const MyassetButtons = () => {
         전체 선택
       </button>
       <button className=" w-[18rem] rounded-md border border-transparent-darkblue p-2 text-transparent-darkblue">
-        선택 항목 다운로드
+        선택 항목 다운로드d
       </button>
     </div>
   )
