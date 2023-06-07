@@ -10,7 +10,7 @@ export default async function HomePage() {
   return (
     <Layout>
       <div className="flex h-full ">
-        <section className="px-[2.3rem] pt-8 w-full">
+        <section className="w-full px-[2.3rem] pt-8">
           <AssetsList assets={assets} />
         </section>
         <section className="sticky top-[7.2rem] h-[calc(100vh-7.2rem)] ">
