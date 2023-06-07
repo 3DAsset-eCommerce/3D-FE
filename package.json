@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "commit": "git-cz"
   },
   "dependencies": {
@@ -31,8 +31,7 @@
     "react-redux": "^8.0.5",
     "tailwindcss": "3.3.2",
     "three": "^0.152.2",
-    "typescript": "5.0.4",
-    "husky": "^8.0.3"
+    "typescript": "5.0.4"
   },
   "config": {
     "commitizen": {
@@ -53,6 +52,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
+      "yarn lint",
       "eslint --fix",
       "prettier --write",
       "git add"
