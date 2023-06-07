@@ -20,21 +20,21 @@ export default function AssetItem({ asset }: Props) {
   return (
     <li
       onClick={handleClick}
-      className="h-[35.8rem] min-w-[22.6rem] hover:cursor-pointer  focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+      className="min-w-[22.6rem] h-[35.8rem] hover:cursor-pointer  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
     >
-      <div className="m-auto h-[35rem] w-[21.8rem]">
-        <div className="h-[26.8rem] rounded bg-gray-100"></div>
+      <div className="w-[21.8rem] h-[35rem] m-auto">
+        <div className="rounded bg-gray-100 h-[26.8rem]"></div>
         <div>
-          <div className="flex h-[3rem] items-center text-sm text-neutral-navy-200">
+          <div className="text-neutral-navy-200 text-sm h-[3rem] flex items-center">
             <span>4.9(38k)</span>
             <pre className="text-transparents-navy-15"> | </pre>
             <span>612k</span>
           </div>
-          <h3 className="flex h-[2.8rem] items-center text-base  leading-[2.178rem] text-neutral-navy-100">
+          <h3 className="text-neutral-navy-100 text-base leading-[2.178rem] h-[2.8rem]  flex items-center">
             {asset.title}
           </h3>
-          <div className="flex h-[2.4rem] items-center justify-between">
-            <p className="text-[1.8rem] leading-[2.4rem] text-neutral-white-0">
+          <div className="justify-between h-[2.4rem] flex items-center">
+            <p className="text-neutral-white-0 text-[1.8rem] leading-[2.4rem]">
               {formatPrice(asset.price)}
             </p>
             <p className="text-primary-newlloyd-button">70%</p>

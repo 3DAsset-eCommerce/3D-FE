@@ -52,7 +52,7 @@ export default function WishContents({ children }: WishContentsProps) {
           <div className=" flex w-[10rem] justify-center">삭제</div>
         </div>
         <div className="border-b border-transparent-navy-30" />
-        <WishContentsItem onCheckboxChange={handleCheckboxChange} data={undefined} />
+        <WishContentsItem isChecked={isChecked} data={undefined} />
       </div>
     </div>
   )

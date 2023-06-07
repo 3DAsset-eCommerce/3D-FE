@@ -8,7 +8,7 @@ export default async function SideNav() {
   const data = await getAllCategories()
 
   return (
-    <aside className="fixed h-screen h min-w-[24.4rem] z-10 bg-bg-1 border-r border-solid border-transparent-navy-30 pt-[2.4rem] pb-16 text-mm">
+    <aside className="h fixed z-10 h-screen min-w-[24.4rem] border-r border-solid border-transparent-navy-30 bg-bg-1 pb-16 pt-[2.4rem] text-mm">
       <div className="pl-[1.6rem]">
         <Image src="/logo-title.svg" alt="로고" width={156} height={36} />
       </div>
@@ -16,7 +16,7 @@ export default async function SideNav() {
         <Image src="/icons/minimizeMenu.svg" alt="메뉴" width={24} height={24} />
       </div>
       <ul className="p-[0.8rem]">
-        <li className="py-[0.4rem] leading-[2.4rem] border-b border-neutral-navy-200">
+        <li className="border-b border-neutral-navy-200 py-[0.4rem] leading-[2.4rem]">
           <Link href="#" className="flex p-[0.8rem] text-neutral-navy-200">
             <Image
               src="/icons/assetList.svg"
@@ -54,7 +54,7 @@ export default async function SideNav() {
             </li>
           </ul>
         </li>
-        <li className="py-[0.4rem] leading-[2.4rem] border-b border-neutral-navy-200">
+        <li className="border-b border-neutral-navy-200 py-[0.4rem] leading-[2.4rem]">
           <div>
             <div className="flex p-[0.8rem] text-neutral-navy-200">
               <Image
