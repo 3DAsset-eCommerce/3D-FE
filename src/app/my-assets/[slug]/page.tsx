@@ -11,7 +11,7 @@ export default function MyAssetsPage() {
   return (
     <Layout>
       <div className="flex w-2 divide-x-0 p-3"></div>
-      <div className="flex-col align-baseline"></div>
+      <div className="flex-col align-baseline "></div>
     </Layout>
   )
 }

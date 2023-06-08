@@ -2,18 +2,21 @@
   {
     "name": "All",
     "subcategories": [],
-    "totalCount": 21000
+    "totalCount": 21000,
+    "tags": ["doctor", "jeans", "shirt", "shirteeee", "adult"]
   },
   {
     "name": "Moving_01",
     "subcategories": [
       {
         "name": "Walking",
-        "count": 100
+        "count": 100,
+        "tags": ["doctor", "jeans", "shirt"]
       },
       {
         "name": "Running",
-        "count": 100
+        "count": 100,
+        "tags": ["doctor", "jeans", "shirt", "aaa"]
       },
       {
         "name": "Jumping",
@@ -28,7 +31,8 @@
         "count": 100
       }
     ],
-    "totalCount": 123
+    "totalCount": 123,
+    "tags": ["doctor", "jeans", "shirt", "adult"]
   },
   {
     "name": "Moving_02",
@@ -66,7 +70,8 @@
         "count": 100
       }
     ],
-    "totalCount": 123
+    "totalCount": 123,
+    "tags": ["abc", "smaile", "dance", "aaa"]
   },
   {
     "name": "Daily Life",

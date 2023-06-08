@@ -15,27 +15,27 @@ export default function AssetDetailNav({ setSelectedTab, selectedTab }: Props) {
   }
 
   return (
-    <div className="w-full flex h-[5rem] text-neutral-200 fixed top-[7.2rem] bg-bg-0">
+    <div className="top- absolute flex h-[5rem] w-[70.9rem] bg-bg-0 text-neutral-200">
       <div
         onClick={() => setSelectedTab(true)}
         className={`${
-          selectedTab ? 'bg-bg-2 border-primary-main' : 'border-transparent-navy-30 '
-        } w-[31.5rem] flex justify-center items-center  border-b-[0.3rem] hover:bg-bg-2 hover:border-primary-main`}
+          selectedTab ? 'border-primary-main bg-bg-2' : 'border-transparent-navy-30 '
+        } flex w-[31.5rem] items-center justify-center  border-b-[0.3rem] hover:border-primary-main hover:bg-bg-2`}
       >
         <button>Asset Detail</button>
       </div>
       <div
         onClick={() => setSelectedTab(false)}
         className={`${
-          !selectedTab ? 'bg-bg-2 border-primary-main ' : 'border-transparent-navy-30 '
-        } w-[31.5rem] flex justify-center items-center  border-b-[0.3rem] hover:bg-bg-2 hover:border-primary-main`}
+          !selectedTab ? 'border-primary-main bg-bg-2 ' : 'border-transparent-navy-30 '
+        } flex w-[31.5rem] items-center justify-center  border-b-[0.3rem] hover:border-primary-main hover:bg-bg-2`}
       >
         <button>
           Review <span>(0)</span>
         </button>
       </div>
       <div
-        className="w-[8rem] flex justify-center items-center  border-transparent-navy-30 border-b-[0.3rem] hover:bg-bg-2 hover:border-primary-main"
+        className="flex w-[8rem] items-center justify-center  border-b-[0.3rem] border-transparent-navy-30 hover:border-primary-main hover:bg-bg-2"
         onClick={handleCloseDrawer}
       >
         <button>닫기</button>

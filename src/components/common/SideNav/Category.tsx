@@ -6,30 +6,37 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { RootState, AppDispatch } from '@/store/store'
 import { setSelectedCategory } from '@/store/setSelectedCategory'
-import { Category } from '@/interface/category'
+import { Category, Subcategory } from '@/interface/category'
 import { getAllCategories } from '@/api/category'
+import { setSelectedTags } from '@/store/tagSlice'
 
 interface CategoryProps {
   data: Category[]
+  handleSubcategoryClick: (subcategory: Subcategory) => void
 }
 
-export default function Category({ data }: CategoryProps) {
+export default function Category({ data, handleSubcategoryClick }: CategoryProps) {
   const selectedCategory = useSelector((state: RootState) => state.category.selectedCategory)
   const dispatch = useDispatch()
 
   const handleCategoryClick = (category: Category) => {
-    if (selectedCategory === category.name) return
-    dispatch(setSelectedCategory(category.name))
+    if (selectedCategory === category.name) {
+      // 이미 선택된 카테고리를 다시 클릭한 경우
+      dispatch(setSelectedTags(category.tags || [])) // 해당 카테고리의 태그를 담음
+    } else {
+      dispatch(setSelectedCategory(category.name))
+      dispatch(setSelectedTags(category.tags || [])) // 선택한 카테고리의 태그 설정
+    }
   }
 
   return (
-    <ul className="py-[0.4rem] leading-[2.4rem] text-sm">
+    <ul className="py-[0.4rem] text-sm leading-[2.4rem]">
       {data.map((category) => (
         <li key={category.name}>
           <Link
             href="#"
             onClick={() => handleCategoryClick(category)}
-            className="flex justify-between w-full text-neutral-navy-200 py-[0.2rem] pl-[2.4rem] pr-[1.2rem]"
+            className="flex w-full justify-between py-[0.2rem] pl-[2.4rem] pr-[1.2rem] text-neutral-navy-200"
           >
             <p className="flex">
               {category.name}
@@ -51,7 +58,8 @@ export default function Category({ data }: CategoryProps) {
                 <li key={subcategory.name}>
                   <Link
                     href="#"
-                    className="flex justify-between w-full text-neutral-navy-200 py-[0.2rem] pl-[3.2rem] pr-[1.2rem]"
+                    onClick={() => handleSubcategoryClick(subcategory)}
+                    className="flex w-full justify-between py-[0.2rem] pl-[3.2rem] pr-[1.2rem] text-neutral-navy-200"
                   >
                     <p>{subcategory.name}</p>
                     <span>{subcategory.count.toLocaleString()}</span>

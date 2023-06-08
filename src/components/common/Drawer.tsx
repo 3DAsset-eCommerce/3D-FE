@@ -13,7 +13,7 @@ export default function Drawer({ children }: Props) {
   console.log(isOpen)
 
   return isOpen ? (
-    <div className="min-w-[71.1rem] h-full bg-bg-0 border-transparent-navy-30 border-l overflow-y-scroll no-scrollbar">
+    <div className="no-scrollbar h-full min-w-[71rem] overflow-y-scroll border-l border-transparent-navy-30 bg-bg-0">
       <section>{children}</section>
     </div>
   ) : null
