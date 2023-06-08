@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
+import { toggleCheckbox } from '@/store/checkboxSlice'
 import { openDrawer } from '@/store/drawerSlice'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -28,7 +29,7 @@ export default function WishContentsItem({ data, isChecked }: WishContentsItemPr
     dispatch(openDrawer())
   }
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked)
+    dispatch(toggleCheckbox())
   }
   return (
     <>
