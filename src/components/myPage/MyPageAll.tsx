@@ -5,7 +5,7 @@
 import React, { useState } from 'react'
 
 import MyPageNav from './MyPageNav'
-import MyOrderHistory from './MyOrderHistory'
+// import MyOrderHistory from './MyOrderHistory'
 import MyAccountSetting from './MyAccountSetting'
 
 export default function MyPageAll() {
@@ -14,7 +14,7 @@ export default function MyPageAll() {
   return (
     <>
       <MyPageNav selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-      {selectedTab ? <MyAccountSetting /> : <MyOrderHistory />}
+      {/* {selectedTab ? <MyAccountSetting /> : <MyOrderHistory />} */}
     </>
   )
 }

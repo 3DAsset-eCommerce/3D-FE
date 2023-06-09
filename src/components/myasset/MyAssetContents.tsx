@@ -1,14 +1,23 @@
 'use client'
-
-import React, { ReactNode } from 'react'
 import { MyassetButtons } from './MyAssetButtons'
 import { MyAssetSearch } from './MyAssetSearch'
 import { MyAssetDropdown } from './MyAssetDropdown'
+import React, { useEffect, useState } from 'react'
+import { MyAssetContetntsItem } from './MyAssetContetntsItem'
+import { MyAssetPagenation } from './MyAssetPagenation'
 
-interface MyAssetContentsProps {
-  children?: ReactNode
+interface DataProps {
+  data?: any
 }
-export const MyAssetContents = ({ children }: MyAssetContentsProps) => {
+export const MyAssetContents = (data: DataProps) => {
+  const itemCount = 14
+  const [isCheckBoxSelect, setisCheckBoxSelect] = useState(false)
+
+  const hadleAllchecked = () => {
+    setisCheckBoxSelect(!isCheckBoxSelect)
+    alert(isCheckBoxSelect)
+  }
+
   return (
     <div className="m-3">
       <div className="mb-16 flex justify-between">
@@ -21,7 +30,15 @@ export const MyAssetContents = ({ children }: MyAssetContentsProps) => {
           <MyAssetSearch />
         </div>
       </div>
-      <div className="flex">{children}</div>
+      <div className="mb-[5rem] flex w-full flex-wrap justify-center ">
+        {[...Array(itemCount)].map((page, index) => (
+          <div key={index} className="mr-6">
+            <MyAssetContetntsItem key={index} isCheckBoxSelect={isCheckBoxSelect} />
+          </div>
+        ))}
+      </div>
+      <MyAssetPagenation />
+      <MyassetButtons hadleAllchecked={hadleAllchecked} />
     </div>
   )
 }

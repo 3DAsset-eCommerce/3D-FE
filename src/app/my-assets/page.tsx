@@ -12,11 +12,7 @@ export default function MyAssetsPage() {
     <Layout>
       <div className="flex h-full ">
         <div className="w-full flex-auto p-10">
-          <MyAssetContents>
-            <MyAssetContetntsItem />
-          </MyAssetContents>
-          <MyAssetPagenation />
-          <MyassetButtons />
+          <MyAssetContents />
         </div>
         <div className="flex-1">
           <Drawer>

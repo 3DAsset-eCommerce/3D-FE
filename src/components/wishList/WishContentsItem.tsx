@@ -16,16 +16,16 @@ interface Data {
   가격?: string
   할인?: string
 }
-interface WishContentsItemProps {
+interface WishContentsProps {
   data?: Data
   isChecked: boolean
 }
 
-export default function WishContentsItem({ data, isChecked }: WishContentsItemProps) {
+export default function WishContentsItem({ data, isChecked }: WishContentsProps) {
   const dispatch = useDispatch()
   const [checked, setChecked] = useState(false)
 
-  const handleClick = () => {
+  const handleClickDrawer = () => {
     dispatch(openDrawer())
   }
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +47,7 @@ export default function WishContentsItem({ data, isChecked }: WishContentsItemPr
             className="h-11 w-11"
           />
         </div>
-        <div onClick={handleClick} className=" flex  w-[8rem] justify-center ">
+        <div onClick={handleClickDrawer} className=" flex  w-[8rem] justify-center ">
           <img src={data?.이미지} alt="3D 이미지" className="h-[10rem] w-[9rem]" />
         </div>
         <div className="flex h-full w-[10rem] flex-auto flex-col justify-around p-5">

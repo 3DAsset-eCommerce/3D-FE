@@ -7,10 +7,12 @@ interface MyAssetPagenationProps {
   pageCount?: number
   onPageChange?: (page: number) => void
 }
+
+// 디폴트값 세팅 프롭스 들어오면 프롭스값으로 적용
 export const MyAssetPagenation = ({
   pageCount = 20,
   pageName = 'wishlist',
-  onPageChange = (page) => alert(page),
+  onPageChange = (page) => console.log(page),
 }: MyAssetPagenationProps) => {
   const [currentPage, setCurrentPage] = useState(0)
 
@@ -38,7 +40,7 @@ export const MyAssetPagenation = ({
   }
   return (
     <nav className=" mb-5 mt-5 flex justify-center border-b border-transparent-navy-30 pb-8">
-      <ul className="inline-flex gap-3 -space-x-px">
+      <ul className="inline-flex items-center gap-3 -space-x-px">
         <li>
           <button
             onClick={() => handlePageNavigation('prev')}
@@ -52,7 +54,7 @@ export const MyAssetPagenation = ({
           <li key={index}>
             <button
               onClick={() => handlePageClick(index)}
-              className={`ml-0 rounded px-3 py-3 leading-tight
+              className={`ml-0 rounded px-3 py-3 font-bold leading-tight
               hover:bg-gray-100 hover:text-gray-700 ${
                 currentPage === index ? `bg-gray-100 text-gray-700` : `text-gray-500`
               } `}

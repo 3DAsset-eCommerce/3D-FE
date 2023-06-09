@@ -1,9 +1,16 @@
+'use client'
 import React, { ChangeEvent } from 'react'
 
-export const MyAssetDropdown = () => {
+interface MyAssetProps {
+  onOptionChange?: any
+}
+
+export const MyAssetDropdown = ({
+  onOptionChange = (action: string) => console.log(action),
+}: MyAssetProps) => {
   const handleOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue: string = event.target.value
-    alert(selectedValue)
+    const selectedValue = event.target.value
+    onOptionChange(selectedValue)
   }
 
   return (
@@ -12,9 +19,8 @@ export const MyAssetDropdown = () => {
         onChange={handleOptionChange}
         className="h-[3rem] rounded-md bg-neutral-navy-1000 px-3 text-mm text-neutral-navy-100"
       >
-        <option value={'1'}>최근 구매순</option>
-        <option value={'2'}>오래된 순 </option>
-        <option value={'3'}>기타 조회</option>
+        <option value={'new'}>최근 구매순</option>
+        <option value={'old'}>오래된 순 </option>
       </select>
     </div>
   )
