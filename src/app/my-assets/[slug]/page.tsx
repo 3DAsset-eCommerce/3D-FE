@@ -6,21 +6,12 @@ import { MyAssetContents } from '@/components/myasset/MyAssetContents'
 import { MyAssetContetntsItem } from '@/components/myasset/MyAssetContetntsItem'
 import { MyAssetFooter } from '@/components/myasset/MyAssetFooter'
 import { MyAssetPagenation } from '@/components/myasset/MyAssetPagenation'
-
 export default function MyAssetsPage() {
+  alert('page')
   return (
     <Layout>
-      <div className="flex h-full ">
-        <div className="w-full flex-auto p-10">
-          <MyAssetContents />
-        </div>
-        <div className="flex-1">
-          <Drawer>
-            <AssetDetail />
-          </Drawer>
-        </div>
-      </div>
-      <MyAssetFooter />
+      <div className="flex w-2 divide-x-0 p-3"></div>
+      <div className="flex-col align-baseline "></div>
     </Layout>
   )
 }

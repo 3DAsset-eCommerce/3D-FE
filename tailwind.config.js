@@ -1,4 +1,6 @@
 module.exports = {
+  tailwindConfig: './styles/tailwind.config.js',
+
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,20 +15,16 @@ module.exports = {
         '1.2rem',
         {
           fontWeight: '400',
-          lineHeight: '1.25rem',
         },
       ],
-      mm: [
-        '1.4rem',
-        { fontWeight: '500' }
-      ],
+      mm: ['1.4rem', { fontWeight: '500' }],
       base: [
         '1.6rem',
         {
           fontWeight: '500',
-          lineHeight: '1.5rem',
         },
       ],
+      sl: ['1.8rem', { fontWeight: '500' }],
       lg: '2.4rem',
       xl: '3.2rem',
     },
@@ -82,4 +80,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+}

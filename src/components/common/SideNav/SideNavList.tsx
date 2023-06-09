@@ -1,22 +1,39 @@
-import Categories from '@/app/categories/page'
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
+import { setSelectedCategory } from '@/store/setSelectedCategory'
+import { Subcategory, Category as typeCategory } from '@/interface/category'
 import Category from './Category'
-import { getAllCategories } from '@/api/category'
+import Tags from './Tags'
+import { setSelectedTags } from '@/store/tagSlice'
 
-export default async function SideNav() {
-  const data = await getAllCategories()
+interface SideNavListProps {
+  category: typeCategory[]
+}
+
+export default function SideNavList({ category }: SideNavListProps) {
+  const selectedTags = useSelector((state: RootState) => state.tag.selectedTags)
+
+  const dispatch = useDispatch()
+
+  const handleSubcategoryClick = (subcategory: Subcategory) => {
+    dispatch(setSelectedTags(subcategory.tags || [])) // 서브카테고리 클릭시 해당 태그로 교체
+  }
+  console.log(selectedTags)
 
   return (
-    <aside className="fixed h-screen h min-w-[24.4rem] z-10 bg-bg-1 border-r border-solid border-transparent-navy-30 pt-[2.4rem] pb-16 text-mm">
+    <div>
       <div className="pl-[1.6rem]">
         <Image src="/logo-title.svg" alt="로고" width={156} height={36} />
       </div>
-      <div className="flex justify-end px-8 py-[0.4rem]">
+      <div className="flex cursor-pointer justify-end px-8 py-[0.4rem]">
         <Image src="/icons/minimizeMenu.svg" alt="메뉴" width={24} height={24} />
       </div>
       <ul className="p-[0.8rem]">
-        <li className="py-[0.4rem] leading-[2.4rem] border-b border-neutral-navy-200">
+        <li className="border-b border-neutral-navy-200 py-[0.4rem] leading-[2.4rem]">
           <Link href="#" className="flex p-[0.8rem] text-neutral-navy-200">
             <Image
               src="/icons/assetList.svg"
@@ -54,7 +71,7 @@ export default async function SideNav() {
             </li>
           </ul>
         </li>
-        <li className="py-[0.4rem] leading-[2.4rem] border-b border-neutral-navy-200">
+        <li className="border-b border-neutral-navy-200 leading-[2.4rem]">
           <div>
             <div className="flex p-[0.8rem] text-neutral-navy-200">
               <Image
@@ -66,10 +83,13 @@ export default async function SideNav() {
               />
               <p>카테고리별</p>
             </div>
-            <Category data={data} />
+            <Category data={category} handleSubcategoryClick={handleSubcategoryClick} />
           </div>
         </li>
+        <li>
+          <Tags selectedTags={selectedTags} />
+        </li>
       </ul>
-    </aside>
+    </div>
   )
 }
