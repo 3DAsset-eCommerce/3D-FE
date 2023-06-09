@@ -28,7 +28,7 @@ export const MyAssetContetntsItem = ({
   }
 
   const handleCheckBox = () => {
-    setIsChecked((prev) => !prev)
+    setIsChecked((prev: any) => !prev)
   }
 
   useEffect(() => {
