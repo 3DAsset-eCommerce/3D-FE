@@ -9,8 +9,8 @@ export interface Review {
   lastName: string
 }
 
-export type PostReview = Omit<Review, 'reviewId' | 'firstName' | 'lastName'>
-export type DeleteReview = Omit<PostReview, 'rating' | 'content'>
+export type CreateReview = Omit<Review, 'reviewId' | 'firstName' | 'lastName'>
+export type DeleteReview = Omit<CreateReview, 'rating' | 'content'>
 
 export interface ReviewData {
   hasAsset: boolean
@@ -20,5 +20,5 @@ export interface ReviewData {
 }
 
 export type ReviewReponse = ApiResponse<ReviewData>
-export type PostReviewResponse = ApiResponse<PostReview>
+export type CreateReviewResponse = ApiResponse<CreateReview>
 export type DeleteReviewResponse = ApiResponse<DeleteReview>

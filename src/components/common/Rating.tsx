@@ -6,7 +6,7 @@ interface Props {
   size: number
 }
 
-export default function Rating({ star = 0, size }: Props) {
+export default function Rating({ star, size }: Props) {
   // const starsWidth = Math.round(starWidth * star * 100) / 100
 
   // const emptyStars = Array.from({ length: 5 }).map((_, index) => (
@@ -43,7 +43,7 @@ export default function Rating({ star = 0, size }: Props) {
           ))}
         </div>
         <div className={`absolute left-0 top-1/2 flex -translate-y-1/2 transform overflow-hidden`}>
-          {Array.from({ length: 0 }).map((_, index) => (
+          {Array.from({ length: star }).map((_, index) => (
             <li key={index} className="mr-[0.8rem]">
               <Stars key={index} isFilled={true} size={size} />
             </li>
