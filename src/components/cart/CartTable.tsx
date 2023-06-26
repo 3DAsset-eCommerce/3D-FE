@@ -1,6 +1,7 @@
 import React from 'react'
 import CartItem from './CartItem'
 import CustomCheckbox from '../common/CustomCheckbox'
+import { CartItemProps } from '@/api/interface/cart'
 
 export default function CartTable() {
   return (

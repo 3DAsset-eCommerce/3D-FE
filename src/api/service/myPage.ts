@@ -15,14 +15,14 @@ export const myPageGetUser = async ({ userId }: UserId) => {
 }
 
 //회원 탈퇴
-export const withdrawal = async ({ id, withdrawData }: WithdrawRequest) => {
-  const { message, deleteConfirm } = withdrawData
-  const { data } = await axiosInstance.post(`/s/user/${id}/withdraw`, {
-    message,
-    deleteConfirm,
-  })
-  return data
-}
+// export const withdrawal = async ({ id, withdrawData }: WithdrawRequest) => {
+//   const { message, deleteConfirm } = withdrawData
+//   const { data } = await axiosInstance.post(`/s/user/${id}/withdraw`, {
+//     message,
+//     deleteConfirm,
+//   })
+//   return data
+// }
 
 // 주문내역 - 달력 필터링에도 사용가능할지도
 export const myPageGetOrderHistory = async (id: number, startDate: Date, endDate: Date) => {
