@@ -4,11 +4,10 @@
 'use client'
 import React, { useState } from 'react'
 import AccountDeleteModal from './AccountDelete'
+import { tr } from 'date-fns/locale'
 import { useForm } from 'react-hook-form'
-import { useGetUserInfo } from '@/hooks/useMyPage'
 
 export default function MyAccountSetting() {
-  const { myUser } = useGetUserInfo()
   const {
     register,
     handleSubmit,
@@ -42,15 +41,14 @@ export default function MyAccountSetting() {
         <h1 className="mb-[4rem] mt-[3rem] text-[2.4rem] font-semibold">내 계정</h1>
         <form className="mb-[18%] flex" onSubmit={handleSubmit(onSubmit)}>
           {/* 성, 이름 Input */}
-          <div className="mt-3 flex flex-col">
+          <div className="flex flex-col">
             <div className="mx-1 my-4 flex flex-col">
               <h4 className="m-1 text-[1.2rem]">이름</h4>
               <input
                 type="text"
                 name="firstName"
-                disabled={true}
-                placeholder={`${myUser?.firstName}`}
-                className="h-[4.2rem] w-[38.8rem] rounded-sm border border-neutral-navy-300 bg-neutral-navy-950 p-2.5 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                placeholder="이름"
+                className="disabled readonly h-[4.2rem] w-[38.8rem] rounded-sm border border-neutral-navy-300 bg-neutral-navy-950 p-2.5 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
               />
             </div>
 
@@ -59,9 +57,8 @@ export default function MyAccountSetting() {
               <input
                 type="text"
                 name="lastName"
-                disabled={true}
-                placeholder={`${myUser?.lastName}`}
-                className="h-[4.2rem] w-[38.8rem] rounded-sm border border-neutral-navy-300 bg-neutral-navy-950 p-2.5 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                placeholder="성"
+                className="disabled readonly h-[4.2rem] w-[38.8rem] rounded-sm border border-neutral-navy-300 bg-neutral-navy-950 p-2.5 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
               />
             </div>
           </div>
@@ -77,9 +74,8 @@ export default function MyAccountSetting() {
             <h4 className="my-4 text-[1.2rem] ">가입한 이메일 주소</h4>
             <input
               type="email"
-              disabled={true}
-              placeholder={`${myUser?.email}`}
-              className="mx-1 h-[4.2rem] w-[38.8rem] rounded-sm border border-neutral-navy-300 bg-neutral-navy-950 p-2.5 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="E-mail"
+              className="disabled readonly mx-1 h-[4.2rem] w-[38.8rem] rounded-sm border border-neutral-navy-300 bg-neutral-navy-950 p-2.5 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
             />
 
             {/* 비밀번호 Input 변경내용 저장버튼*/}
@@ -120,19 +116,13 @@ export default function MyAccountSetting() {
 
                 <button
                   type="submit"
-                  disabled={!isValid}
-                  className={`bg-transparent mx-1 mt-4 h-[4.2rem] w-[38.8rem] ${
-                    isValid ? 'bg-primary-darkblue-hover' : 'bg-neutral-navy-950'
-                  }
-                    ${
-                      isValid ? 'border-none' : 'border border-neutral-navy-300'
-                    } rounded-sm border border-gray-600 px-4 py-3 text-center text-sm hover:border-blue-500`}
+                  className="bg-transparent m-1 mt-4 h-[4.2rem] w-[38.8rem] rounded-sm border border-gray-600 px-5 py-3 text-center text-sm hover:border-blue-500"
                 >
                   저장하기
                 </button>
               </div>
             ) : (
-              <div className="mt-[11%] flex flex-col">
+              <div className="mt-6 flex flex-col">
                 <button
                   onClick={handlePasswordChangeInputVisibility}
                   className="bg-transparent m-1 h-[4.2rem] w-[38.8rem] rounded-sm border border-gray-600 px-4 py-3 text-center text-sm hover:border-blue-500"

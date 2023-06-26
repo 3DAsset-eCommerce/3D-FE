@@ -1,15 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 import Logout from '../../logout/Logout'
 import { getToken, setToken } from '@/utils/token'
-import { cartCount } from '@/api/service/cart'
-import { useDispatch, useSelector } from 'react-redux'
-import { setItemCount } from '@/store/cartSlice'
-import { RootState } from '@/store/store'
 import OrderHistoryButton from './OrderHistoryButton'
 
 export default function Header() {
@@ -21,27 +16,6 @@ export default function Header() {
       setAccessToken(true)
     }
   }, [accessToken])
-
-  // 유저 장바구니 개수 가져오기
-  // const userId = useSelector((state: RootState) => state.user.userId) // 유저 아이디 확인필요
-  const userId = 1
-  const dispatch = useDispatch()
-
-  const { data: cartItemCount = 0, refetch } = useQuery(
-    ['cartCount', userId],
-    () => cartCount(userId),
-    {
-      onSuccess: (data) => {
-        dispatch(setItemCount(data))
-      },
-    },
-  )
-
-  useEffect(() => {
-    if (accessToken) {
-      refetch()
-    }
-  }, [accessToken, refetch])
 
   return (
     <header className="fixed z-10 flex h-[7.2rem] w-[calc(100%-24.4rem)] items-center justify-between border-b border-solid border-transparent-navy-30 bg-bg-1 px-[2.3rem] py-[1.1rem]">
@@ -56,13 +30,10 @@ export default function Header() {
               <Image src="/icons/heart.svg" alt="위시리스트로" width={22} height={22} />
             </Link>
           </li>
-          <li className="relative">
+          <li>
             <Link href="/cart" className="block p-[0.9rem]">
               <Image src="/icons/cartPlus.svg" alt="장바구니로" width={22} height={22} />
             </Link>
-            <p className="absolute right-[0.1rem] top-[0.3rem] h-[1.5rem] w-[1.5rem] rounded-full bg-neutral-white-50 text-center text-[1rem] font-semibold text-neutral-navy-950">
-              {cartItemCount}
-            </p>
           </li>
           <li>
             <Link href="/my-assets" className="block p-[0.9rem]">

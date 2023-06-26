@@ -14,7 +14,6 @@ import {
   PasswordCheckRequest,
   PasswordSendRequest,
   RegisterEnroll,
-  UserResponseData,
 } from '../interface/auth'
 
 //로그인
@@ -26,6 +25,7 @@ export const login = async <T = LoginResponse>(account: LoginRequest): Promise<T
   return res.data
 }
 
+//회원정보 조회
 export const getUser = async (user: number) => {
   if (!user) return null
   const res = await axiosInstance.get(`/s/user/${user}`)
@@ -120,3 +120,4 @@ export const joinVerifyConfirm = async (verifyCode: string) => {
     console.log(error)
   }
 }
+
