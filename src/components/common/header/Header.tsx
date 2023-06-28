@@ -15,16 +15,16 @@ import OrderHistoryButton from './OrderHistoryButton'
 export default function Header() {
   const [accessToken, setAccessToken] = useState(false)
 
-  useEffect(() => {
-    const cookieToken = getToken()
-    if (cookieToken) {
-      setAccessToken(true)
-    }
-  }, [accessToken])
+  // useEffect(() => {
+  //   const cookieToken = getToken()
+  //   if (cookieToken) {
+  //     setAccessToken(true)
+  //   }
+  // }, [accessToken])
 
   // 유저 장바구니 개수 가져오기
-  // const userId = useSelector((state: RootState) => state.user.userId) // 유저 아이디 확인필요
-  const userId = 1
+  const userId = useSelector((state: RootState) => state.user.userId) // 유저 아이디 확인필요
+  // const userId = 1
   const dispatch = useDispatch()
 
   const { data: cartItemCount = 0, refetch } = useQuery(
@@ -37,11 +37,11 @@ export default function Header() {
     },
   )
 
-  useEffect(() => {
-    if (accessToken) {
-      refetch()
-    }
-  }, [accessToken, refetch])
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     refetch()
+  //   }
+  // }, [accessToken, refetch])
 
   return (
     <header className="fixed z-10 flex h-[7.2rem] w-[calc(100%-24.4rem)] items-center justify-between border-b border-solid border-transparent-navy-30 bg-bg-1 px-[2.3rem] py-[1.1rem]">
@@ -49,7 +49,7 @@ export default function Header() {
         <Image src="/icons/search.svg" alt="검색" width={24} height={24} />
         <input type="text" className="ml-[0.8rem] w-full bg-bg-2 text-neutral-white-50" />
       </div>
-      {accessToken ? (
+      {userId ? (
         <ul className="flex items-center before:m-[1rem] before:h-[3.4rem] before:w-[0.2rem] before:bg-transparent-navy-30">
           <li>
             <Link href="/wishlist" className="block p-[0.9rem]">

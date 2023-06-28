@@ -82,7 +82,7 @@ export default function SignUp() {
       return
     }
     emailDuplicateCheckMutation(email)
-    handleCodeSend()
+    // handleCodeSend()
   }
 
   // 회원가입 이메일 인증코드 확인 핸들러
@@ -196,14 +196,14 @@ export default function SignUp() {
           <input
             type="text"
             placeholder="인증코드 입력"
-            aria-invalid={!isDirty ? undefined : errors.code ? 'true' : 'false'}
-            {...register('code', {
-              required: '인증코드는 필수 입력입니다.',
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: '인증코드 형식에 맞지 않습니다.',
-              },
-            })}
+            // aria-invalid={!isDirty ? undefined : errors.code ? 'true' : 'false'}
+            // {...register('code', {
+            //   required: '인증코드는 필수 입력입니다.',
+            //   pattern: {
+            //     value: /\S+@\S+\.\S+/,
+            //     message: '인증코드 형식에 맞지 않습니다.',
+            //   },
+            // })}
             className="w-[85%] rounded-sm bg-neutral-navy-950 p-2.5"
           />
           {timerVisible ? (
@@ -296,7 +296,7 @@ export default function SignUp() {
       {/* 회원가입 버튼 */}
       <button
         type="submit"
-        disabled={!isValid && !isAgreed}
+        disabled={!isValid || (!isDirty && !isAgreed)}
         className={`w-full rounded-full px-5 py-3 text-center text-[2rem] ${
           isValid ? 'bg-primary-darkblue-hover' : 'bg-neutral-navy-950'
         }
