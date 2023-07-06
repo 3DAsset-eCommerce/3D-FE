@@ -7,15 +7,19 @@ import { axiosInstance } from '../axios'
 import {
   EmailCheckRequest,
   JoinVerifyCodeSend,
+  JoinVerifyCodeSendResponse,
   JoinVerifyConfirmRequest,
   LoginRequest,
   LoginResponse,
   PasswordChangeRequest,
   PasswordCheckRequest,
   PasswordSendRequest,
+  Register,
   RegisterEnroll,
+  User,
   UserResponseData,
 } from '../interface/auth'
+import { AxiosResponse } from 'axios'
 
 //로그인
 export const login = async <T = LoginResponse>(account: LoginRequest): Promise<T> => {
@@ -76,7 +80,7 @@ export const passwordChange = async (user: PasswordChangeRequest) => {
 }
 
 //회원가입
-export const join = async (user: RegisterEnroll) => {
+export const join = async (user: Register) => {
   try {
     const { data } = await axiosInstance.post('/signup', user)
     return data
@@ -98,25 +102,51 @@ export const emailDuplicateCheck = async (email: string) => {
 }
 
 //회원가입 - 입력한 이메일로 인증코드 전송
-export const joinVerifyCodeSend = async (email: string) => {
+// export const joinVerifyCodeSend = async <T = LoginResponse>(
+//   data: JoinVerifyCodeSend,
+// ): Promise<T | undefined> => {
+//   try {
+//     const res = await axiosInstance.post<T>('/signup/send', data)
+//     return res.data
+//   } catch (error) {
+//     console.log(error)
+//   }
+//   return undefined
+// }
+// export const joinVerifyCodeSend = async (
+//   data: JoinVerifyCodeSend,
+// ): Promise<JoinVerifyCodeSendResponse | undefined> => {
+//   try {
+//     const res = await axiosInstance.post<JoinVerifyCodeSendResponse>('/signup/send', data)
+//     return res.data
+//   } catch (error) {
+//     console.log(error)
+//     return undefined
+//   }
+// }
+
+// 회원가입 - 인증코드 전송
+export const joinVerifyCodeSend = async (
+  data: JoinVerifyCodeSend,
+): Promise<AxiosResponse<JoinVerifyCodeSend> | undefined> => {
   try {
-    const data = await axiosInstance.post<JoinVerifyCodeSend>('/signup/send', {
-      email,
-    })
-    return data
+    const res = await axiosInstance.post<AxiosResponse<JoinVerifyCodeSend>>('/signup/send', data)
+    return res.data
   } catch (error) {
     console.log(error)
+    return undefined
   }
 }
 
-//회원가입 - 인증코드 확인
-export const joinVerifyConfirm = async (verifyCode: string) => {
+// 회원가입 - 인증코드 확인
+export const joinVerifyConfirm = async <T = LoginResponse>(
+  data: JoinVerifyConfirmRequest,
+): Promise<T | undefined> => {
   try {
-    const data = await axiosInstance.post<JoinVerifyConfirmRequest>('/signup/check', {
-      verifyCode,
-    })
-    return data
+    const res = await axiosInstance.post<T>('/signup/check', data)
+    return res.data
   } catch (error) {
     console.log(error)
   }
+  return undefined
 }

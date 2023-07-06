@@ -2,9 +2,16 @@ import {
   EmailCheckRequest,
   JoinResponseData,
   JoinVerifyCodeSend,
+  JoinVerifyConfirmRequest,
+  Register,
   RegisterEnroll,
 } from '@/api/interface/auth'
-import { emailDuplicateCheck, joinVerifyCodeSend, join } from '@/api/service/auth'
+import {
+  emailDuplicateCheck,
+  joinVerifyCodeSend,
+  join,
+  joinVerifyConfirm,
+} from '@/api/service/auth'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/navigation'
@@ -49,8 +56,39 @@ export const useSignUp = () => {
   const { mutate: joinVerifyCodeSendMutation } = useMutation<
     AxiosResponse<JoinVerifyCodeSend> | undefined,
     AxiosError,
-    string
+    { firstName: string; lastName: string; email: string }
   >(joinVerifyCodeSend, {
+    onSuccess: (data) => {
+      if (data?.data) {
+        Swal.fire({
+          title: '인증 코드가 전송 되었습니다.',
+          text: '입력하신 이메일수신함 인증코드를 확인하세요',
+          icon: 'success',
+          color: '#C7D1DB',
+          background: '#171A1D',
+          confirmButtonColor: '#3399FF ',
+          confirmButtonText: '확인',
+        })
+      } else {
+        Swal.fire({
+          title: '인증코드전송에 실패했습니다.',
+          text: '정확한 이메일을 입력해주세요',
+          icon: 'error',
+          color: '#C7D1DB',
+          background: '#171A1D',
+          confirmButtonColor: '#3399FF ',
+          confirmButtonText: '확인',
+        })
+      }
+    },
+  })
+
+  //회원가입 - 인증코드 확인
+  const { mutate: joinVerifyConfirmMutation } = useMutation<
+    AxiosResponse<JoinVerifyConfirmRequest> | undefined,
+    AxiosError,
+    { userId: number; email: string; code: string }
+  >(joinVerifyConfirm, {
     onSuccess: (data) => {
       if (data?.data) {
         Swal.fire({
@@ -77,7 +115,7 @@ export const useSignUp = () => {
   })
 
   //회원가입
-  const { mutate: joinMutation } = useMutation<JoinResponseData, AxiosError, RegisterEnroll>(join, {
+  const { mutate: joinMutation } = useMutation<JoinResponseData, AxiosError, Register>(join, {
     onSuccess: (data) => {
       Swal.fire({
         title: '회원가입이 완료되었습니다.',
@@ -103,5 +141,10 @@ export const useSignUp = () => {
     },
   })
 
-  return { joinMutation, emailDuplicateCheckMutation, joinVerifyCodeSendMutation }
+  return {
+    joinMutation,
+    emailDuplicateCheckMutation,
+    joinVerifyCodeSendMutation,
+    joinVerifyConfirmMutation,
+  }
 }

@@ -3,6 +3,7 @@
  */
 import { FieldValues } from 'react-hook-form'
 import { ApiResponse } from '.'
+import { type } from 'os'
 export interface LoginRequest {
   email: string
   password: string
@@ -15,13 +16,6 @@ export interface UserId {
 
 export type LoginResponse = ApiResponse<UserId>
 
-export interface RegisterRequest extends LoginRequest {
-  firstName: string
-  lastName: string
-  code: string
-  passwordConfirm?: string
-}
-
 export interface User {
   firstName: string
   lastName: string
@@ -30,13 +24,10 @@ export interface User {
 }
 
 export interface UserResponseData {
-  data?: {
-    id: number
-    firstName: string
-    lastName: string
-    email: string
-    createdAt: Date | string
-  }
+  id: number
+  firstName: string
+  lastName: string
+  email: string
 }
 
 //이메일중복체크
@@ -51,6 +42,8 @@ export interface JoinVerifyCodeSend {
   email: string
 }
 
+export type JoinVerifyCodeSendResponse = ApiResponse<UserId> | undefined
+
 //회원가입-인증확인 request
 export interface JoinVerifyConfirmRequest {
   userId: number
@@ -58,12 +51,18 @@ export interface JoinVerifyConfirmRequest {
   code: string
 }
 
-//회원가입등록
-export interface RegisterEnroll {
+export interface Register {
   firstName: string
   lastName: string
   email: string
   password: string
+}
+
+//회원가입등록
+export interface RegisterEnroll extends Register {
+  userId: number
+  code: string
+  passwordConfirm?: string
 }
 
 // 회원가입성공시, response
@@ -93,17 +92,3 @@ export interface PasswordChangeRequest {
   password: string
   code: string
 }
-
-// export interface EditProfileRequest {
-//   userId: number | undefined
-//   userData: {
-//     curPassword: string
-//     newPassword: string
-//   }
-// }
-
-// export interface EditProfileHookFormProps extends EditProfileRequest {
-//   curPassword: string
-//   newPassword: string
-//   passwordConfirm: string
-// }

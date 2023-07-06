@@ -3,18 +3,29 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Image from 'next/image'
 import TermsModal from './TermsModal'
-import { RegisterEnroll, RegisterRequest } from '@/api/interface/auth'
+import { Register, RegisterEnroll, User } from '@/api/interface/auth'
 import { useSignUp } from '@/hooks/useSignUp'
 import Swal from 'sweetalert2'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
 
 export default function SignUp() {
-  const { joinMutation, emailDuplicateCheckMutation } = useSignUp()
+  const {
+    joinMutation,
+    emailDuplicateCheckMutation,
+    joinVerifyCodeSendMutation,
+    joinVerifyConfirmMutation,
+  } = useSignUp()
   const {
     register,
     handleSubmit,
     getValues,
     formState: { isDirty, errors, isValid },
-  } = useForm<RegisterRequest>()
+  } = useForm<RegisterEnroll>()
+  // } = useForm<User>()
+
+  // const [responseUserId, setResponseUserId] = useState<number | null>()
+  const [sendCode, setSendCode] = useState(false)
 
   //인증코드 타이머
   const TIMER_TIME = 600
@@ -54,57 +65,33 @@ export default function SignUp() {
     return () => clearInterval(timerId.current)
   }, [])
 
+  // 이메일 중복확인 핸들러
+  const handlerEmailCheck = () => {
+    const email = getValues('email')
+    emailDuplicateCheckMutation(email)
+    if (!sendCode) {
+      handleCodeSend()
+    }
+  }
+
   // 인증코드 전송
   const handleCodeSend = () => {
+    const email = getValues('email')
+    const firstName = getValues('firstName')
+    const lastName = getValues('lastName')
+
+    joinVerifyCodeSendMutation({ firstName, lastName, email })
     resetTimer()
     setTimerVisible(true)
     startTimer()
   }
-  // 인증코드 확인
-  const handleCodeChange = () => {}
-
-  // 이메일 중복확인 핸들러
-  const handlerEmailCheck = () => {
-    const email = getValues('email')
-    const pattern = /\S+@\S+\.\S+/ // 이메일 정규식
-    const emailValue = pattern.test(email)
-
-    if (!emailValue) {
-      Swal.fire({
-        title: '이메일 형식에 맞지 않습니다.',
-        text: '다른 이메일을 입력해주세요.',
-        icon: 'error',
-        color: '#C7D1DB',
-        background: '#171A1D',
-        confirmButtonColor: '#3399FF',
-        confirmButtonText: '확인',
-      })
-      return
-    }
-    emailDuplicateCheckMutation(email)
-    // handleCodeSend()
-  }
 
   // 회원가입 이메일 인증코드 확인 핸들러
-  const handlerVerifiedCodeConfirm = () => {
-    const verifyCode = getValues('code')
-    const pattern = /^(?=.*[A-Z])(?=.*\d)[A-Z\d]{6}$/ // 인증코드 정규식
-    const verifyCodeValue = pattern.test(verifyCode)
-
-    if (!verifyCodeValue) {
-      Swal.fire({
-        title: '인증코드 형식에 맞지 않습니다.',
-        text: '정확한 인증코드를 입력해주세요.',
-        icon: 'error',
-        color: '#C7D1DB',
-        background: '#171A1D',
-        confirmButtonColor: '#3399FF',
-        confirmButtonText: '확인',
-      })
-      return
-    }
-    emailDuplicateCheckMutation(verifyCode)
+  const handlerVerifiedCodeConfirm = async () => {
+    const code = getValues('code')
+    // joinVerifyConfirmMutation(code)
   }
+
   // 비밀번호, 비밀번호확인 노출 토글
   const [passwordVisibility, setPasswordVisibility] = useState(false)
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false)
@@ -132,7 +119,7 @@ export default function SignUp() {
     setIsOpen(!isOpen)
   }
 
-  const onSignup = (data: RegisterEnroll) => {
+  const onSignup = (data: Register) => {
     const { email, firstName, lastName, password } = data
     setIsAgreed(true)
     joinMutation({
@@ -182,12 +169,27 @@ export default function SignUp() {
           })}
           className=" mr-1 w-full rounded-sm border border-neutral-navy-300 bg-neutral-navy-950 p-2.5 text-neutral-white-50 focus:border-blue-500 focus:ring-blue-500 "
         />
-        <button
+        {sendCode ? (
+          <button
+            onClick={handleCodeSend}
+            className="mx-1 flex w-[54%] items-center justify-center rounded-sm border border-primary-darkblue-hover bg-primary-darkblue-hover px-4 py-2 text-neutral-white-50"
+          >
+            인증코드 전송
+          </button>
+        ) : (
+          <button
+            onClick={handlerEmailCheck}
+            className="mx-1 flex w-[54%] items-center justify-center rounded-sm border border-primary-darkblue-hover bg-primary-darkblue-hover px-4 py-2 text-neutral-white-50"
+          >
+            이메일 중복확인
+          </button>
+        )}
+        {/* <button
           onClick={handlerEmailCheck}
           className="mx-1 flex w-[54%] items-center justify-center rounded-sm border border-primary-darkblue-hover bg-primary-darkblue-hover px-4 py-2 text-neutral-white-50"
         >
           이메일 중복확인
-        </button>
+        </button> */}
       </div>
 
       {/* 인증코드 확인*/}
@@ -196,14 +198,14 @@ export default function SignUp() {
           <input
             type="text"
             placeholder="인증코드 입력"
-            // aria-invalid={!isDirty ? undefined : errors.code ? 'true' : 'false'}
-            // {...register('code', {
-            //   required: '인증코드는 필수 입력입니다.',
-            //   pattern: {
-            //     value: /\S+@\S+\.\S+/,
-            //     message: '인증코드 형식에 맞지 않습니다.',
-            //   },
-            // })}
+            aria-invalid={!isDirty ? undefined : errors.code ? 'true' : 'false'}
+            {...register('code', {
+              required: '인증코드는 필수 입력입니다.',
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: '인증코드 형식에 맞지 않습니다.',
+              },
+            })}
             className="w-[85%] rounded-sm bg-neutral-navy-950 p-2.5"
           />
           {timerVisible ? (
@@ -212,7 +214,10 @@ export default function SignUp() {
             </p>
           ) : null}
         </div>
-        <button className="mx-1 flex w-[54%] items-center justify-center rounded-sm border border-primary-darkblue-hover bg-primary-darkblue-hover px-4 py-2 text-neutral-white-50">
+        <button
+          onClick={handlerVerifiedCodeConfirm}
+          className="mx-1 flex w-[54%] items-center justify-center rounded-sm border border-primary-darkblue-hover bg-primary-darkblue-hover px-4 py-2 text-neutral-white-50"
+        >
           인증코드 확인
         </button>
       </div>
