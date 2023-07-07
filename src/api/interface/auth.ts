@@ -10,7 +10,8 @@ export interface LoginRequest {
 }
 
 export interface UserId {
-  userId: null | number
+  // userId: null | number
+  userId: number
 }
 
 export type LoginResponse = ApiResponse<UserId>
