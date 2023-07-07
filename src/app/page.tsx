@@ -11,16 +11,12 @@ export default function HomePage() {
     <Layout>
       <div className="flex">
         <div className="h-[100%] w-full">
-          <section className="min-h-[calc(100vh-12.3rem)] px-[2.3rem] pt-8">
-            <IndividualAsset />
-          </section>
+          <IndividualAsset />
           <Footer />
         </div>
-        <section className="sticky top-[7.2rem] h-[calc(100vh-7.2rem)] ">
-          <Drawer>
-            <AssetDetail />
-          </Drawer>
-        </section>
+        <Drawer>
+          <AssetDetail />
+        </Drawer>
       </div>
     </Layout>
   )

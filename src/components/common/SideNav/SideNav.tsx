@@ -13,7 +13,9 @@ export default async function SideNav() {
     border-r border-solid border-transparent-navy-30 bg-bg-1 pb-16 pt-[2.4rem] text-mm"
     >
       <div className="pl-[1.6rem]">
-        <Image src="/logo-title.svg" alt="로고" width={156} height={36} />
+        <Link href="/">
+          <Image src="/logo-title.svg" alt="로고" width={156} height={36} />
+        </Link>
       </div>
       <div className="flex cursor-pointer justify-end px-8 py-[0.4rem]">
         <Image src="/icons/minimizeMenu.svg" alt="메뉴" width={24} height={24} />

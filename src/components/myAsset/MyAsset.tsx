@@ -46,7 +46,6 @@ export default function MyAsset() {
       count: prevState.count + 1,
     }))
   }
-
   return (
     <section className="text-[1.4rem] text-neutral-navy-100">
       <div className="flex w-full justify-between">

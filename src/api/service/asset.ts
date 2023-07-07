@@ -35,3 +35,12 @@ export const getAssetDetail = async <T = AssetDetailResponse>(id: number): Promi
   const res = await axiosInstance.get<T>(`/assets/${id}/details`)
   return res.data
 }
+
+export const getSubCategories = async <T = AssetResponse>(
+  page: number,
+  category: string,
+  subCategory: string,
+): Promise<T> => {
+  const res = await axiosInstance.get<T>(`/assets/${category}/${subCategory}?page=${page}`)
+  return res.data
+}

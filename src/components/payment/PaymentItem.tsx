@@ -12,7 +12,7 @@ export default function PaymentItem({ item }: PaymentItemProps) {
     <li className="flex items-center px-[0.4rem] py-[0.65rem]">
       <div>
         <Image
-          src="/image.svg"
+          src={`https://asset-store-bucket.s3.ap-northeast-2.amazonaws.com/asset-store-bucket/${item.asset.thumbnailUrl}`}
           alt="asset"
           width={68}
           height={85}

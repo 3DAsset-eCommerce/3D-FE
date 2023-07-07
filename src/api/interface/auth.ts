@@ -29,14 +29,16 @@ export interface User {
   password: string
 }
 
+export interface UserInfo {
+  id: number
+  firstName: string
+  lastName: string
+  email: string
+  createdAt: Date | string
+}
+
 export interface UserResponseData {
-  data?: {
-    id: number
-    firstName: string
-    lastName: string
-    email: string
-    createdAt: Date | string
-  }
+  data?: UserInfo
 }
 
 //이메일중복체크

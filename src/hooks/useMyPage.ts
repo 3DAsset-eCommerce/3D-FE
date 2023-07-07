@@ -18,7 +18,7 @@ export const useGetUserInfo = () => {
   const userId = useSelector((state: RootState) => state.user.userId)
   const { data: myUser, refetch } = useQuery({
     queryKey: ['myUser', userId],
-    queryFn: () => getUserInfo(userId),
+    queryFn: () => getUserInfo(),
     select: (data) => {
       return data.data
     },

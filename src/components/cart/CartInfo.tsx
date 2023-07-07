@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import Title from '../common/Title'
 import { formatPrice } from '@/utils/formatPrice'
 import { CartItemProps } from '@/api/interface/cart'
@@ -19,6 +20,7 @@ export default function CartInfo({
   cartItems,
   selectedCartIds,
 }: CartInfoProps) {
+  const router = useRouter()
   const totalPrice = selectedTotalPrice - selectedDiscountAmount
 
   const navigateToNextPage = () => {
@@ -27,7 +29,7 @@ export default function CartInfo({
     )
     localStorage.setItem('selectedItems', JSON.stringify(selectedItems))
     if (selectedItems.length > 0) {
-      window.location.href = '/payment'
+      router.push('/payment')
     }
   }
 

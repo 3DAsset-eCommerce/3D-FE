@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function CategoryAsset() {
   return (
-    <div className="mb-[0.9rem] border-b border-neutral-navy-200 py-[0.4rem]">
+    <div className="mb-[0.9rem] p-[0.8rem]">
       <Link href="/" className="flex p-[0.8rem] text-neutral-navy-200">
         <Image
           src="/icons/assetList.svg"

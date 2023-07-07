@@ -2,24 +2,20 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function OrderInfo({ register, errors }: any) {
-  const { setValue } = useForm()
+  const { setValue, watch, trigger } = useForm()
   console.log(errors)
 
+  const phoneNumber = watch('phoneNumber')
+
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let rawValue = e.target.value.replace(/-/g, '') // 입력된 값에서 모든 하이픈 제거
-    let formattedValue = ''
-    if (rawValue.length > 3) {
-      formattedValue += rawValue.slice(0, 3) + '-'
-      if (rawValue.length > 7) {
-        formattedValue += rawValue.slice(3, 7) + '-' + rawValue.slice(7, 11)
-      } else {
-        formattedValue += rawValue.slice(3, 7)
-      }
-    } else {
-      formattedValue += rawValue
-    }
-    e.target.value = formattedValue // 입력된 값에 하이픈이 추가된 값을 설정
-    setValue('phoneNumber', formattedValue) // 필드 값을 업데이트
+    const rawValue = e.target.value.replace(/-/g, '')
+    const formattedValue = autoHyphen(rawValue)
+    e.target.value = formattedValue
+    setValue('phoneNumber', formattedValue)
+  }
+
+  const autoHyphen = (value: string): string => {
+    return value.replace(/[^0-9]/g, '').replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, '$1-$2-$3')
   }
 
   return (
@@ -76,7 +72,7 @@ export default function OrderInfo({ register, errors }: any) {
         <li
           className={`mt-[1.6rem] h-[5rem] w-full rounded-sm border ${
             errors.phoneNumber ? 'border-point-red' : 'border-transparent-navy-30'
-          } bg-bg-1 px-[1.6rem] py-[1.2rem] ${errors.email && 'mt-12'}`}
+          } bg-bg-1 px-[1.6rem] py-[1.2rem] ${errors.email && errors.email.message && '!mt-12'}`}
         >
           <input
             type="text"

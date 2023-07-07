@@ -17,11 +17,10 @@ export default function CategoryList({ categories }: Props) {
   const { name, tagList } = useSelector((state: RootState) => state.category)
   const dispatch = useDispatch()
 
-
   return (
     <>
       <div className="p-[0.8rem]">
-        <div className="mb-[0.9rem] border-b border-neutral-navy-200 leading-[2.4rem]">
+        <div className="mb-[0.9rem] border-y border-neutral-navy-200 leading-[2.4rem]">
           <div className=" p-[0.8rem] text-neutral-navy-200">
             <Link href="/" className="flex">
               <Image

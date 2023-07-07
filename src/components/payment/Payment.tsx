@@ -8,8 +8,8 @@ import OrderInfo from '@/components/payment/OrderInfo'
 import PaymentMethod from '@/components/payment/PaymentMethod'
 import Title from '@/components/common/Title'
 import { SelectedItem } from '@/api/interface/cart'
-import { PaymentPayload } from '@/api/interface/payment'
-import { submitPayment } from '@/utils/paymentUtils'
+import { OrderResponse, PaymentPayload } from '@/api/interface/payment'
+import { postPayment } from '@/api/service/payments'
 
 export default function Payment() {
   const route = useRouter()
@@ -34,6 +34,20 @@ export default function Payment() {
       localStorage.removeItem('selectedItems')
     }
   }, [route])
+
+  async function submitPayment(payload: PaymentPayload) {
+    try {
+      const response: OrderResponse = await postPayment(payload)
+      // 결제 성공 시
+      console.log('결제 성공:', response)
+      // ... 결제 성공 처리 로직 작성 ...
+      route.push(`/payment/complete?orderId=${response.data.orderId}`)
+    } catch (error) {
+      // 결제 실패 시
+      console.error('결제 실패:', error)
+      // ... 결제 실패 처리 로직 작성 ...
+    }
+  }
 
   const onSubmit: SubmitHandler<PaymentPayload> = (data) => {
     const assetList = selectedItems.map((item) => item.asset.assetId)

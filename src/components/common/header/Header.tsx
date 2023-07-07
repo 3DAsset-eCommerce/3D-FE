@@ -11,26 +11,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setItemCount } from '@/store/cartSlice'
 import { RootState } from '@/store/store'
 import OrderHistoryButton from './OrderHistoryButton'
+import { useUser } from '@/hooks/useUser'
 
 export default function Header() {
   const [accessToken, setAccessToken] = useState(false)
+  const { userId } = useUser()
+  const dispatch = useDispatch()
+  const cartItemCount = useSelector((state: RootState) => state.cart.itemCount)
 
   useEffect(() => {
     const cookieToken = getToken()
     if (cookieToken) {
       setAccessToken(true)
     }
-  }, [accessToken])
+  }, [userId])
 
-  // 유저 장바구니 개수 가져오기
-  // const userId = useSelector((state: RootState) => state.user.userId) // 유저 아이디 확인필요
-  const userId = 1
-  const dispatch = useDispatch()
-
-  const { data: cartItemCount = 0, refetch } = useQuery(
+  const { refetch } = useQuery(
     ['cartCount', userId],
-    () => cartCount(userId),
+    () => (userId !== undefined ? cartCount(userId) : Promise.resolve(0)),
     {
+      enabled: userId !== undefined,
       onSuccess: (data) => {
         dispatch(setItemCount(data))
       },
@@ -38,9 +38,7 @@ export default function Header() {
   )
 
   useEffect(() => {
-    if (accessToken) {
-      refetch()
-    }
+    refetch()
   }, [accessToken, refetch])
 
   return (

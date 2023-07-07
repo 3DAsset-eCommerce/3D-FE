@@ -4,6 +4,7 @@ import { formatPrice } from '@/utils/formatPrice'
 import CustomCheckbox from '../common/CustomCheckbox'
 import { CartItemProps as CartItemPropsInterface } from '@/api/interface/cart'
 import { deleteSelectedCartItem } from '@/utils/cartUtils'
+import { useUser } from '@/hooks/useUser'
 
 interface CartItemProps {
   item: CartItemPropsInterface['item']
@@ -22,12 +23,14 @@ export default function CartItem({
   setCartItems,
   setSelectedCartIds,
 }: CartItemProps) {
+  const { userId } = useUser()
+
   const handleCheckboxChange = (isChecked: boolean) => {
     onChecked(`${item.cartId}`, isChecked) // 체크박스 체크/언체크 이벤트 핸들러 호출
   }
 
   const handleDeleteItem = () => {
-    deleteSelectedCartItem(item.cartId, cartItems, setCartItems, setSelectedCartIds)
+    deleteSelectedCartItem(userId, item.cartId, cartItems, setCartItems, setSelectedCartIds)
   }
 
   return (
@@ -40,7 +43,13 @@ export default function CartItem({
         />
       </td>
       <td className="py-[0.8rem]">
-        <Image src="/image.svg" alt="asset" width={80} height={100} className="min-w-[8rem]" />
+        <Image
+          src={`https://asset-store-bucket.s3.ap-northeast-2.amazonaws.com/asset-store-bucket/${item.asset.thumbnailUrl}`}
+          alt="asset"
+          width={80}
+          height={100}
+          className="min-w-[8rem]"
+        />
       </td>
       <td>
         <div className="px-[1.2rem]">
@@ -49,7 +58,7 @@ export default function CartItem({
             <li className="flex items-center after:m-[0.8rem] after:h-[1.2rem] after:w-[0.1rem] after:bg-transparent-navy-30">
               확장자 : {item.asset.extension}
             </li>
-            <li>데이터 용량 : {item.asset.size}</li>
+            <li>데이터 용량 : {item.asset.size}KB</li>
           </ul>
         </div>
       </td>

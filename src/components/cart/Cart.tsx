@@ -9,28 +9,32 @@ import { CartItemProps } from '@/api/interface/cart'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 import { deleteAllCartItems, deleteSelectedCartItems } from '@/utils/cartUtils'
+import { useUser } from '@/hooks/useUser'
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState<CartItemProps['item'][]>([])
   const [selectedCartIds, setSelectedCartIds] = useState<string[]>([])
   const [selectedTotalPrice, setSelectedTotalPrice] = useState<number>(0)
   const [selectedDiscountAmount, setSelectedDiscountAmount] = useState<number>(0)
+  const { userId } = useUser()
+
+  console.log(cartItems)
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        // const userId = useSelector((state: RootState) => state.user.userId)
-        // 확인 필요 useSelector
-        const response = await cartList(1)
-        setCartItems(response.data)
-        console.log('a', response.data)
+        if (typeof window !== 'undefined') {
+          // 클라이언트 측인지 확인
+          const response = await cartList(userId)
+          setCartItems(response.data)
+          console.log('a', response.data)
+        }
       } catch (error) {
         console.log('Error fetching cart items:', error)
       }
     }
     fetchCartItems()
-  }, [])
+  }, [userId])
 
   // 체크박스 체크/언체크 이벤트 핸들러
   const handleCheckboxChange = (cartId: string, isChecked: boolean) => {
@@ -44,11 +48,12 @@ export default function Cart() {
   }
 
   // 모든 장바구니 아이템 삭제
-  const handleDeleteAll = () => deleteAllCartItems(cartItems, setCartItems, setSelectedCartIds)
+  const handleDeleteAll = () =>
+    deleteAllCartItems(userId, cartItems, setCartItems, setSelectedCartIds)
 
   // 선택된 장바구니 아이템 삭제
   const handleDeleteSelected = () =>
-    deleteSelectedCartItems(selectedCartIds, cartItems, setCartItems, setSelectedCartIds)
+    deleteSelectedCartItems(userId, selectedCartIds, cartItems, setCartItems, setSelectedCartIds)
 
   const selectedCount = selectedCartIds.length
 

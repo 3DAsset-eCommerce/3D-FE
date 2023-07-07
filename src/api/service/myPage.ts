@@ -9,7 +9,7 @@ import { OrderHistoryResponse, OrderHistoryResponseData } from '../interface/pay
 
 //유저정보조회
 // export const getUserInfo = async (id: number): Promise<UserResponseData> => {
-export const getUserInfo = async <T = UserResponseData>(id: number): Promise<T> => {
+export const getUserInfo = async <T = UserResponseData>(): Promise<T> => {
   const res = await axiosInstance.get(`/s/user/`)
   return res.data
 }

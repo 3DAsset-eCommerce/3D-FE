@@ -1,4 +1,4 @@
-import { getAssets } from '@/api/service/asset'
+import { getAssets, getSubCategories } from '@/api/service/asset'
 import { useQuery } from '@tanstack/react-query'
 
 export const useGetAssets = (page: number) => {
@@ -9,4 +9,14 @@ export const useGetAssets = (page: number) => {
   })
 
   return { assets }
+}
+
+export const useCategoryAssets = (page: number, category: string, subCategory: string) => {
+  const { data: categoryAssets } = useQuery({
+    queryKey: ['assets', category, subCategory, page],
+    queryFn: () => getSubCategories(page, category, subCategory),
+    keepPreviousData: true,
+  })
+
+  return { categoryAssets }
 }

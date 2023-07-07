@@ -41,7 +41,7 @@ export default function TableItem({
                 {`확장자 : ${extension}`}
               </li>
               <li className="flex items-center after:bg-transparent-navy-30">
-                {`데이터 용량 : ${size}`}
+                {`데이터 용량 : ${size}KB`}
               </li>
             </ul>
           </div>

@@ -17,7 +17,13 @@ export default function AssetDetailContent({ asset }: Props) {
   return (
     <>
       <div className="h-[52.3rem] border-b border-transparent-navy-30 bg-bg-2 pt-[4.7rem]">
-        {/* <Image src="/icons/copy.svg" alt="copy" width={710} height={520} className="ml-[0.9rem]" /> */}
+        <Image
+          src={`${process.env.NEXT_PUBLIC_S3_URL}/thumbnail/2023/06/27/1d26689e-0451-461d-83ad-cd006f114eb0.png`}
+          alt="detail"
+          width={385}
+          height={120}
+          className="mx-auto"
+        />{' '}
       </div>
       <article className="h-full px-6 pb-10 pt-6 text-neutral-navy-100">
         <div className="mb-6 flex h-[5.6rem] items-center justify-between">

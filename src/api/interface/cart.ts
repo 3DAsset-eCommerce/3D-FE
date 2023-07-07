@@ -19,6 +19,7 @@ export interface Asset {
   discountPrice: number
   extension: string
   size: number
+  thumbnailUrl: string
 }
 
 export interface CartDeleteRequest {
