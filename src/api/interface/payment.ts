@@ -1,9 +1,9 @@
-import { FieldValues } from 'react-hook-form'
-import { ApiResponse } from '.'
-
 /**
  * 결제, 결제 내역 관련 Interface
  */
+import { FieldValues } from 'react-hook-form'
+import { ApiResponse } from '.'
+
 export interface OrderHistory {
   orderId: number
   orderNumber: string
@@ -30,23 +30,11 @@ export interface OrderHistoryData {
 
 //주문 내역
 export interface OrderHistoryResponseData extends FieldValues {
-  data: {
-    orderList: [
-      {
-        orderId: number
-        orderNumber: string
-        // orderDate: Date
-        orderDate: string
-        // orderDate: Date | string
-        totalPrice: number
-        assetCount: number
-      },
-    ]
-    size: number
-    currentPage: number
-    totalPage: number
-    totalElement: number
-  }
+  orderList: OrderHistory[]
+  size: number
+  currentPage: number
+  totalPage: number
+  totalElement: number
 }
 
 //주문내역 상세보기
@@ -58,7 +46,7 @@ export interface OrderHistoryDetailResponseData extends FieldValues {
     orderDetail: {
       orderId: number
       orderNumber: number
-      orderDate: Date | string
+      orderDate: Date
       totalPrice: number
       assetCount: number
     }

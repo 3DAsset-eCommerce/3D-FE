@@ -10,6 +10,7 @@ export interface LoginRequest {
 }
 
 export interface UserId {
+  // userId: null | number
   userId: number
 }
 
@@ -95,17 +96,3 @@ export interface PasswordChangeRequest {
   password: string
   code: string
 }
-
-// export interface EditProfileRequest {
-//   userId: number | undefined
-//   userData: {
-//     curPassword: string
-//     newPassword: string
-//   }
-// }
-
-// export interface EditProfileHookFormProps extends EditProfileRequest {
-//   curPassword: string
-//   newPassword: string
-//   passwordConfirm: string
-// }

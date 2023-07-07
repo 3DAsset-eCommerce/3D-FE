@@ -1,22 +1,44 @@
 import Image from 'next/image'
-import MyOrderHistoryItem from '../MyOrderHistoryItem'
-import OrderHistoryDrawer from '../OrderHistoryDrawer'
+import { formatPrice } from '@/utils/formatPrice'
+import { useOrderHistoryDetail } from '@/hooks/useMyPage'
+import { useSelector } from 'react-redux'
+import { OrderHistoryState } from '@/store/orderHistoryStore'
+import DetailListItem from './DetailListItem'
 
 export default function MyOrderDetail() {
+  const { orderHistoryId } = useSelector((state: OrderHistoryState) => state.clickedOrderHistory)
+  const { orderHistoryDetail } = useOrderHistoryDetail(orderHistoryId)
+
+  if (!orderHistoryId) {
+    return null
+  }
+
   return (
-    <section className="mx-6 flex w-[97%] flex-col ">
-      <div className="mb-6 mt-[3.3rem] flex w-full">
-        <Image src="/icons/arrowLeft.svg" alt="edit" width={24} height={24} />
-        <h1 className="ml-4 text-[1.5rem] font-semibold dark:text-neutral-navy-100">
-          주문상세내역
-        </h1>
+    <>
+      <div className="mt-8">
+        <tr className="flex flex-col">
+          <p className="mb-6 flex text-[1.8rem] font-normal">주문상품</p>
+          <td className="flex h-[4rem] w-[100%] justify-between bg-bg-3 px-[5rem] text-[1.4rem] font-normal text-neutral-100">
+            <p className="flex w-[45%] items-center">결제수단 : BC카드</p>
+            <div className="flex w-[38%] items-center justify-between py-4 text-[1.15rem]">
+              <Image src="/icons/plus.svg" alt="plus" width={18} height={18} />
+              <p>상품금액</p>
+              <p>{formatPrice(200000)}</p>
+              <Image src="/icons/minus.svg" alt="minus" width={18} height={18} />
+              <p>할인금액</p>
+              <p>{formatPrice(50000)}</p>
+              <Image src="/icons/equal.svg" alt="equal" width={18} height={18} />
+            </div>
+            <p className="flex items-center">
+              <p className="mr-2">결제 금액</p>
+              <p className="text-[2rem]">{formatPrice(150000)}</p>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <DetailListItem detailInfo={orderHistoryDetail} />
+        </tr>
       </div>
-      <div className="mx-1 my-3 flex h-[2.5rem] w-full justify-between text-[0.9rem] dark:text-neutral-navy-100">
-        <h1 className="mr-[20rem]">주문일자</h1>
-        <h1 className="mr-[36.2rem]">주문번호</h1>
-        <h1 className="mr-[3.4rem]">구매한 에셋 수</h1>
-        <h1 className="mr-[2.2rem]">결제금액</h1>
-      </div>
-    </section>
+    </>
   )
 }

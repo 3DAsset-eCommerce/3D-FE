@@ -4,7 +4,7 @@ import { RootState } from '@/store/store'
 import { useRouter } from 'next/navigation'
 import {
   getMyPageOrderHistory,
-  getOrderHistory,
+  getMyPageOrderHistoryDetail,
   getUserInfo,
   withdrawal,
 } from '@/api/service/myPage'
@@ -12,7 +12,7 @@ import { WithdrawRequest, WithdrawResponse } from '@/api/interface/myPage'
 import { AxiosError } from 'axios'
 import Swal from 'sweetalert2'
 import { removeCookie } from '@/utils/token'
-import { data } from 'autoprefixer'
+import { endOfDay, startOfDay, subDays } from 'date-fns'
 
 export const useGetUserInfo = () => {
   const userId = useSelector((state: RootState) => state.user.userId)
@@ -69,22 +69,29 @@ export const useWithdrawal = () => {
   return { deleteWithdrawal }
 }
 
-// export const useGetOrderHistories = (page: number) => {
-//   const { data: orderHistories } = useQuery({
-//     queryKey: ['orderHistories', page],
-//     queryFn: () => getOrderHistory(page),
-//   })
-
-//   return { orderHistories }
-// }
-
-export const useGetOrderHistories = (startDate: string, endDate: string) => {
-  const id = useSelector((state: RootState) => state.user.userId)
+export const useGetOrderHistories = () => {
+  const userId = localStorage.getItem('userId')
+  //오늘 부터 이전 7일 기준으로 출력
+  const today = new Date()
+  const startDate = startOfDay(subDays(today, 7))
+  const endDate = endOfDay(today)
 
   const { data: orderHistories } = useQuery({
-    queryKey: ['orderHistories', id, startDate, endDate],
-    queryFn: () => getMyPageOrderHistory(id, startDate, endDate),
+    queryKey: ['orderHistories', userId, startDate, endDate],
+    queryFn: () => getMyPageOrderHistory(userId, startDate, endDate),
     keepPreviousData: true,
   })
+
   return { orderHistories }
+}
+
+export const useOrderHistoryDetail = (oderId: number) => {
+  const userId = localStorage.getItem('userId')
+  const { data: orderHistoryDetail } = useQuery({
+    queryKey: ['orderHistoryDetail', userId, oderId],
+    queryFn: () => getMyPageOrderHistoryDetail(userId, oderId),
+    keepPreviousData: true,
+  })
+
+  return { orderHistoryDetail }
 }
