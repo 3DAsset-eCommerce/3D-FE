@@ -1,12 +1,17 @@
 import { UserId } from '@/api/interface/auth'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState: UserId = {
-  userId: 0,
+interface UserState {
+  userId: number | null
+}
+
+const initialState: UserState = {
+  userId: null,
 }
 
 const userSlice = createSlice({
-  name: 'tag',
+  // name: 'tag',
+  name: 'user',
   initialState,
   reducers: {
     setUser: (state: UserId, action: PayloadAction<number>) => {
