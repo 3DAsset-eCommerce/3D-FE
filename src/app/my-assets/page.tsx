@@ -3,11 +3,12 @@ import AssetDetail from '@/components/assetDetail/AssetDetail'
 import Drawer from '@/components/common/Drawer'
 import MyAsset from '@/components/myAsset/MyAsset'
 
-interface MyAssetsPageProps {
-  id: number | null
-}
+// interface MyAssetsPageProps {
+//   id: number | null
+// }
 
-export default function MyAssetsPage({ id }: MyAssetsPageProps) {
+// export default function MyAssetsPage({ id }: MyAssetsPageProps) {
+export default function MyAssetsPage() {
   return (
     <Layout>
       <div className="flex">
